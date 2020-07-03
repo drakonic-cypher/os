@@ -1,0 +1,33 @@
+-------------------------------------------------------------------------
+-									-
+-			 MYSTIX a 32-bit Toy OS				-
+-			         README					-	
+-									-
+-------------------------------------------------------------------------
+
+--Directory Structure--
+
+-Files pertaining to the boot sector are located under the boot dir.
+
+-Files pertaining to the 32-bit kernel code are located under kernel dir.
+
+-The image directory would normally contain the disk-image created with
+bximage and formatted using mkfs.ext2.
+
+--To Run--
+
+-Boot Sector code is assembled using nasm and then copied using 'dd' command
+to block 0 of the disk-image.
+
+-The kernel code is compiled only to objet code, and it is linked 
+with a starting kernel-entry procedure (order of linkage matters here, kernel
+entry procedure must be first object file and since there is no main method 
+to jump to, the address to which the boot loader jumps to is chosen 
+arbitrarily).
+
+-The disk image is then mounted and the kernel.bin file generated from the 
+linkage is added to the folder as a regular file. The image now contains 
+the kernel as a linux file and the boot sector will then find it.
+
+-Finally the image is ran using bochs, the setup of bochs is located at the top
+of the directory tree (bochsrc).
